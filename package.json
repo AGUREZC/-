@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "test": "node --check src/app.js"
+  },
+  "devDependencies": {}
+}

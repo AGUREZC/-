@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>电力方舱项目管理驾驶舱</title>
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">数据中心建设 · 电力方舱研发</p>
+      <h1>项目管理可视化小程序</h1>
+      <p class="subtitle">围绕里程碑、任务、风险和量化指标，帮助研发项目经理实时掌握进度并导出数据。</p>
+    </div>
+    <button id="exportCsv" class="primary">导出量化数据 CSV</button>
+  </header>
+
+  <main>
+    <section class="grid metrics" aria-label="项目核心指标">
+      <article class="card"><span>总体完成率</span><strong id="overallProgress">0%</strong><progress id="overallBar" max="100" value="0"></progress></article>
+      <article class="card"><span>任务完成</span><strong id="taskDone">0/0</strong><small id="taskHealth">待计算</small></article>
+      <article class="card"><span>里程碑达成</span><strong id="milestoneDone">0/0</strong><small>按关键交付物统计</small></article>
+      <article class="card"><span>高风险事项</span><strong id="riskHigh">0</strong><small>需周会闭环</small></article>
+    </section>
+
+    <section class="layout">
+      <form id="taskForm" class="panel" aria-label="新增项目任务">
+        <h2>新增 / 量化任务</h2>
+        <label>任务名称<input id="taskName" required placeholder="例如：PCS 选型评审" /></label>
+        <label>模块
+          <select id="taskModule">
+            <option>总体方案</option><option>电气一次</option><option>电气二次</option><option>热管理</option><option>消防安全</option><option>结构集成</option><option>测试验证</option><option>供应链</option>
+          </select>
+        </label>
+        <div class="two-col">
+          <label>责任人<input id="taskOwner" required placeholder="姓名" /></label>
+          <label>截止日期<input id="taskDue" type="date" required /></label>
+        </div>
+        <div class="two-col">
+          <label>完成率 %<input id="taskProgress" type="number" min="0" max="100" value="0" /></label>
+          <label>优先级<select id="taskPriority"><option>高</option><option>中</option><option>低</option></select></label>
+        </div>
+        <button class="primary" type="submit">添加任务</button>
+      </form>
+
+      <section class="panel">
+        <div class="section-title"><h2>模块进展</h2><span>按任务完成率自动汇总</span></div>
+        <div id="moduleChart" class="chart"></div>
+      </section>
+    </section>
+
+    <section class="panel">
+      <div class="section-title"><h2>任务看板</h2><span>可点击“+10%”快速更新进度</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>任务</th><th>模块</th><th>责任人</th><th>截止</th><th>优先级</th><th>进度</th><th>操作</th></tr></thead>
+          <tbody id="taskTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="layout">
+      <section class="panel">
+        <h2>关键里程碑</h2>
+        <div id="milestones" class="timeline"></div>
+      </section>
+      <section class="panel">
+        <h2>风险台账</h2>
+        <div id="risks" class="risk-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="src/app.js"></script>
+</body>
+</html>
